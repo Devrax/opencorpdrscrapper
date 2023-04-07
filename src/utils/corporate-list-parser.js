@@ -1,6 +1,8 @@
 /**
- * @param {puppeteer.ElementHandle<Element>} ulElement
- */
+ * Parses a corporate list from an HTML ul element.
+ * @param {puppeteer.ElementHandle<Element>} ulElement - The ul element containing the list of companies.
+ * @returns {Promise<Object[]>} - Returns a promise that resolves to an array of objects representing the companies in the list.
+*/
 export async function corporateListParser(ulElement) {
     const liElements = await ulElement.$$("li");
   

@@ -1,6 +1,15 @@
 import puppeteer from "puppeteer";
 import { corporateListParser } from "../utils/corporate-list-parser.js";
 
+/**
+ * 
+ * Async function that handles HTTP GET request to scrape a corporate list from a given URL.
+ * @function companies
+ * @param {Object} req - HTTP request object.
+ * @param {Object} res - HTTP response object.
+ * @throws {Error} Will throw an error if any error occurs while scraping the data.
+ * @returns {Promise<void>} - A Promise that resolves when the data is successfully scraped and sent as a JSON response.
+*/
 export async function companies(req, res) {
     try {
       let result = null;

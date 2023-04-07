@@ -1,5 +1,8 @@
 /**
- * @param {puppeteer.ElementHandle<Element>} divElement
+ * Parses corporate information from an element in a Puppeteer page.
+ *
+ * @param {puppeteer.ElementHandle<Element>} divElement - The element containing the corporate information.
+ * @returns {Promise<{ companyName: string, dataset: [string, string][] }>} A promise that resolves to an object with the company name and dataset.
  */
 export async function corporateInformationParser(divElement) {
 

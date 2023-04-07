@@ -1,6 +1,18 @@
 import puppeteer from "puppeteer";
 import { corporateInformationParser } from '../utils/corporate-information-parser.js';
 
+/**
+ * Retrieves information about a company from a given URL using Puppeteer and a corporate information parser.
+ * @async
+ * @function company
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON object with the result of the company information parser.
+ * @throws {Error} - If there is an internal server error or a timeout due to high demand.
+ * @example
+ * const url = encodedURIComponent("https://opencorporates.com/companies/do/455268");
+ * company({ query: { url } }, res);
+*/
 export async function company(req, res) {
     try {
       let result = null;
@@ -14,7 +26,8 @@ export async function company(req, res) {
       const data = await page.$("div.vcard[itemscope]");
   
       if (data != null) {
-        result = await corporateInformationParser(data);
+        const company = await corporateInformationParser(data);
+        const DGIIDatabase = 
       } else {
         await browser.close();
         res.status(404).json({ message: "Not matches found", code: "001" });

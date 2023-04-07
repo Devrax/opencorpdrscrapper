@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Web scraper to extract company data from OpenCorporates",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon --experimental-modules src/index.js"
   },
   "keywords": [
     "web scraper",

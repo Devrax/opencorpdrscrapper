@@ -6,5 +6,5 @@ app.get("/companies", companies);
 app.get("/company", company);
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Server started on http://localhost:3000/");
+  console.log(`Server started on http://localhost:/${process.env.PORT}`);
 });

@@ -11,7 +11,7 @@ export async function consultRNC(searchValue) {
     const { data, error } = await supabase
         .from("consulta-rnc")
         .select("*")
-        .like('legalName', `%${searchValue.uppercase()}%`);
+        .like('legalName', `%${searchValue}%`);
 
         if (error) {
             return null

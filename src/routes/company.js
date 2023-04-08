@@ -1,5 +1,6 @@
-import puppeteer from "puppeteer";
+import puppeteer, { TimeoutError } from "puppeteer";
 import { corporateInformationParser } from '../utils/corporate-information-parser.js';
+import { consultRNC } from "../DB/supabase.js";
 
 /**
  * Retrieves information about a company from a given URL using Puppeteer and a corporate information parser.
@@ -27,23 +28,25 @@ export async function company(req, res) {
   
       if (data != null) {
         const company = await corporateInformationParser(data);
-        const DGIIDatabase = 
+        const DGIIDatabase = await consultRNC(company.companyName) ?? {};
+
+        result = {...DGIIDatabase, ...company};
       } else {
         await browser.close();
-        res.status(404).json({ message: "Not matches found", code: "001" });
+        return res.status(404).json({ message: "Not matches found", code: "001" });
       }
       await browser.close();
-      res.json({ result });
+      return res.json({ result });
     } catch (err) {
       console.error(err);
   
-      if (err instanceof puppeteer.TimeoutError) {
-        res.status(503).json({
+      if (err instanceof TimeoutError) {
+        return res.status(503).json({
           message: "Try within 30 minutes, this is due to high demand :)",
           code: "002",
         });
       }
   
-      res.status(500).json({ message: "Internal server error", code: "000" });
+      return res.status(500).json({ message: "Internal server error", code: "000" });
     }
   }

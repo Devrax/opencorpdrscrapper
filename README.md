@@ -4,6 +4,7 @@ The server uses:
 - **Node.js v18.12.1**
 - **Express.js v4.18.2**
 - **Puppeteer v19.8.2.** 
+- **Supabase* v2.15.0**
 
 It provides an endpoint /scrape to scrape data from the OpenCorporates website.
 
@@ -14,14 +15,14 @@ It provides an endpoint /scrape to scrape data from the OpenCorporates website.
 4. The server should be up and running on http://localhost:3000/ by default.
 
 ## REST API Endpoint
-> `GET /scrape`
+> `GET /companies`
 
 *Use this endpoint to retrieve data from OpenCorporates. The endpoint requires a query parameter, **url**, that contains the URL of the search page to be scraped. The search page URL should be encoded using the encodeURIComponent() function. The response will be a JSON object containing an array of search results.*
 
 
 Request
 ```http
-GET /scrape?url=https%3A%2F%2Fopencorporates.com%2Fcompanies%2Fdo%3Futf8%3D%25E2%259C%2593%26q%3DMona HTTP/1.1
+GET /companies?url=https%3A%2F%2Fopencorporates.com%2Fcompanies%2Fdo%3Futf8%3D%25E2%259C%2593%26q%3DMona HTTP/1.1
 Host: localhost:3000
 ```
 
@@ -67,16 +68,86 @@ The above response shows the information about companies that match the search q
 - `companyName`: Specifies the name of the company.
 - `companyHref`: Contains a link to the company's page on the opencorporates website.
 
+> `GET /company`
+
+*Use this endpoint to retrieve data from OpenCorporates. The endpoint requires a query parameter, **url**, that contains the URL of the search page to be scraped. The search page URL should be encoded using the encodeURIComponent() function. The response will be a JSON object containing an object of search results.*
+
+
+Request
+```http
+GET /company?url=https%3A%2F%2Fopencorporates.com%2Fcompanies%2Fdo%2F94279 HTTP/1.1
+Host: localhost:3000
+```
+
+response
+```json
+{
+    "result": {
+        "RNC"?: "123008325",
+        "legalName"?: "FERRETERIA MADERERA EL EBANISTA SRL",
+        "establishmentDate"?: "27/06/2001",
+        "status"?: "ACTIVO",
+        "companyName": "FERRETERIA MADERERA EL EBANISTA",
+        "dataset": [
+            [
+                "company_number",
+                "94279"
+            ],
+            [
+                "status",
+                "Registro Vencido"
+            ],
+            [
+                "incorporation_date",
+                "15 August 1998 (over 24 years ago)"
+            ],
+            [
+                "dissolution date",
+                "15 August 2018"
+            ],
+            [
+                "company_type",
+                "NO/NO"
+            ],
+            [
+                "jurisdiction",
+                "Dominican Republic"
+            ],
+            [
+                "registered_address adr",
+                "CARRT. LA VICTORIA CASI ESQ. 22, SABANA PERDIDA - Dominican Republic"
+            ],
+            [
+                "business_classification_text",
+                "46-LICITO COMERCIO."
+            ],
+            [
+                "officers trunc8",
+                "AGUSTIN PEÑA DIAZ Y GUILLER, gestor - AGUSTIN PEÑA DIAZ Y GUILLERMO DE LA ROSA, titular"
+            ],
+            [
+                "registry_page",
+                "http://www.onapi.gov.do:8081/api/sign..."
+            ]
+        ]
+    }
+}
+```
+
 ## Error Codes
 The server returns the following error codes:
 
 - `404`: Not matches found - Error code: 001
 > This error is returned when no matching data is found on the page.
-- `503`: Try within 30 minutes, this is due to high demand :) - Error code: 002
-> This error is returned when the server experiences a timeout error due to high demand and recommends the user try again within 30 minutes.
 - `500`: Internal server error - Error code: 000
 > This error is returned when an unexpected error occurs on the server.
+- `503`: Try within 30 minutes, this is due to high demand :) - Error code: 002
+> This error is returned when the server experiences a timeout error due to high demand and recommends the user try again within 30 minutes.
 
 These error codes are returned as JSON responses along with their respective error messages.
 
 Overall, this Node.js REST API server uses Puppeteer to scrape the opencorporates website and retrieves information about companies that match a search query. This information is then parsed and returned as a JSON response to the client.
+
+## Supabase Key
+
+If you want access to the database api key or want me to share with you my database about the DGII, you can contact me anytime, send me a message or open a Pull Request.

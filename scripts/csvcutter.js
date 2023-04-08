@@ -1,5 +1,10 @@
 import fs from 'fs';
 
+/**
+ * This for the DGII entries that are in TXT, but in order for to be loaded into supabase,
+ * must be turn into TSV, this list usually must be update each 2 weeks, the last update was 
+ * on Friday 7 april 2023
+ */
 fs.readFile('DGII/DGII_RNC.TXT', 'utf-8', (err, data) => {
     if (err) {
         console.error(err);

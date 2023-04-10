@@ -26,7 +26,7 @@ export default {
                     required />
                 <button
                     @click="searchHandle"
-                    type="submit" 
+                    :disabled="!search"
                     class="focus-visible:outline-none text-[--fifth-color] absolute right-2.5 bottom-2.5 bg-[--primary-color] hover:bg-[--secondary-color] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-[--primary-color] dark:hover:bg-[--secondary-color] dark:focus:ring-blue-800"
                 >Buscar</button>
             </div>

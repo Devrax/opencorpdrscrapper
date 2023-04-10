@@ -11,7 +11,8 @@ export default {
     },
     setup() {
 
-        const defaultSearcherMessage = '🔍 Coloca el nombre de la empresa en el buscador 🔎';
+        const defaultSearcherMessage = '🔍 Coloca el nombre de la empresa en el buscador 🔎',
+            noMatchesSearcherMessage = '😓Tal parece no tenemos registros sobre la empresa que buscas 🚧';
 
         const companiesState = reactive({
             searchMessage: defaultSearcherMessage,
@@ -26,21 +27,39 @@ export default {
                 const baseURL = 'https://openbusiness.up.railway.app';
                 const url = createURLQuery(value);
                 const response = await fetch(`${baseURL}/companies?url=${encodeURIComponent(url)}`);
-                const { result, message } = await response.json();
+                const { result, message, code } = await response.json();
                 
-                if(message) return;
+                if(message) {
+                    const msg = '';
+                    switch(code) {
+                        case '000':
+                            msg = '🚨💻🆘 Ocurrió un error del lado del servidor. 😔';
+                            break;
+                        case '001':
+                            msg = noMatchesSearcherMessage
+                            break;
+                        case '002':
+                            msg = '🔄🔟⏰ Vuelve a intentarlo dentro de 10 minutos, 🚥 el servidor experimenta alto tráfico. 🚀';
+                            break;
+                        default:
+                            msg = `${message} - ${code}`;
+                            break;
+                    }
+                    companiesState.searchMessage = msg;
+                    return;
+                };
     
                 companiesState.companies = result.map(company => {
                     company.location = company.location?.toLowerCase() || 'N/A';
                     return company;
                 });
-            } catch (error) {
-                console.log(error);
-            } finally {
                 companiesState.searchMessage = companiesState.companies.length === 0 
                 ? '😓Tal parece no tenemos registros sobre la empresa que buscas 🚧'
                 : defaultSearcherMessage;
-
+                
+            } catch (error) {
+                console.log(error);
+            } finally {
                 companiesState.loading = false;
             }
         };

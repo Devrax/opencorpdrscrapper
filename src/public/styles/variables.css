@@ -1,0 +1,13 @@
+:root {
+    --primary-color: #242331;
+    --secondary-color: #533E2D;
+    --third-color: #A27035;
+    --fourth-color: #B88B4A;
+    --fifth-color: #DDCA7D;
+
+    --main-bg-color: var(--primary-color);
+    --secondary-bg-color: var(--secondary-color);
+    
+    --primary-text-color: var(--fifth-color);
+    --primary-tint-text-color: var(--forth-color);
+}

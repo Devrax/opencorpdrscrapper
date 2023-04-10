@@ -1,0 +1,57 @@
+body {
+    margin: 0px;
+    background-color: var(--main-bg-color);
+    color: var(--primary-text-color);
+}
+
+.registrada::after, [class^="registrado"]::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: "\2713";
+    color: white;
+    background: green;
+    height: 100%;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+}
+
+.inactive::after {
+    content: "\1806";
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    background: var(--secondary-color);
+    height: 100%;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+}
+
+.registered-legend::after {
+    content: "\2713";
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    background-color: green;
+    font-weight: 900;
+    border-radius: 4px;
+    color: white;
+}
+
+.inactive-legend::after {
+    content: "\1806";
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    color: white;
+    background: var(--secondary-color);
+    font-weight: 900;
+    border-radius: 4px;
+}

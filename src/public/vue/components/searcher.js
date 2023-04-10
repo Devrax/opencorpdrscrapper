@@ -25,7 +25,7 @@ export default {
                     class="focus-visible:outline-none block p-4 pl-10 w-full text-sm text-[--fifth-color] bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-[--fifth-color] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Busca el nombre del negocio" 
                     required />
                 <button
-                    @click="searchHandle"
+                    @click.prevent="searchHandle"
                     :disabled="!search"
                     class="focus-visible:outline-none text-[--fifth-color] absolute right-2.5 bottom-2.5 bg-[--primary-color] hover:bg-[--secondary-color] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-[--primary-color] dark:hover:bg-[--secondary-color] dark:focus:ring-blue-800"
                 >Buscar</button>
